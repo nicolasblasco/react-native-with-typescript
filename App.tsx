@@ -1,43 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
   Text,
   View,
-  FlatList,
-  ActivityIndicator
+  FlatList
 } from 'react-native';
 
-  type clientType = {
-    id: number,
-    name: string,
-    username: string,
-    email: string,
-    address: {
-      street: string,
-      suite: string,
-      city: string,
-      zipcode: string,
-      geo: {
-        lat: number,
-        lng: number
-      }
-    },
-    phone: string,
-    website: string,
-    company: {
-      name: string,
-      catchPhrase: string,
-      bs: string
+type clientType = {
+  id: number,
+  name: string,
+  username: string,
+  email: string,
+  address: {
+    street: string,
+    suite: string,
+    city: string,
+    zipcode: string,
+    geo: {
+      lat: number,
+      lng: number
     }
+  },
+  phone: string,
+  website: string,
+  company: {
+    name: string,
+    catchPhrase: string,
+    bs: string
   }
+}
 
 const App = () => {
 
   const [clients, setClients] = useState<clientType[]>([]);
   const [isLoading, setLoading] = useState(false);
 
-  useEffect(() => {
+  const onRefresh = () => {
     setLoading(true);
     fetch('https://jsonplaceholder.typicode.com/users')
     .then( async (response) => await response.json())
@@ -46,6 +45,10 @@ const App = () => {
       setLoading(false)
     })
     .catch((error) => { error});
+  }
+
+  useEffect(() => {
+    onRefresh()
   }, [])
 
   return (
@@ -54,13 +57,12 @@ const App = () => {
         <View style={styles.header}>
           <Text style={styles.headerTitle}>Radium Care</Text>
         </View>
-        <Text style={styles.title}>Clients</Text>
-        {isLoading && <View>
-           <ActivityIndicator />
-        </View>}
-        {!isLoading && <FlatList
+        <FlatList
+          ListHeaderComponent={<Text style={styles.title}>Clients</Text>}
           keyExtractor={(item) => item.id.toString()}
           data={clients}
+          refreshing={isLoading}
+          onRefresh={onRefresh}
           renderItem={({item}) => (
             <View style={styles.item}>
                 <Text style={styles.itemData}>ID: {item.id}</Text>
@@ -68,7 +70,7 @@ const App = () => {
                 <Text style={styles.itemData}>Email: {item.email}</Text>
             </View>
           )}
-        />}
+        />
       </View>
     </SafeAreaView>
   );
