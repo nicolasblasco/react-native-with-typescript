@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -6,30 +6,8 @@ import {
   View,
   FlatList
 } from 'react-native';
-
-type clientType = {
-  id: number,
-  name: string,
-  username: string,
-  email: string,
-  address: {
-    street: string,
-    suite: string,
-    city: string,
-    zipcode: string,
-    geo: {
-      lat: number,
-      lng: number
-    }
-  },
-  phone: string,
-  website: string,
-  company: {
-    name: string,
-    catchPhrase: string,
-    bs: string
-  }
-}
+import clientType from './helper/clientType';
+import ListItem from './Components/ListItem';
 
 const App = () => {
 
@@ -64,11 +42,11 @@ const App = () => {
           refreshing={isLoading}
           onRefresh={onRefresh}
           renderItem={({item}) => (
-            <View style={styles.item}>
-                <Text style={styles.itemData}>ID: {item.id}</Text>
-                <Text style={styles.itemData}>Name: {item.name}</Text>
-                <Text style={styles.itemData}>Email: {item.email}</Text>
-            </View>
+            <ListItem
+              id={item.id}
+              name={item.name}
+              email={item.email}
+            />
           )}
         />
       </View>
@@ -95,15 +73,6 @@ const styles = StyleSheet.create({
     margin: 5,
     fontSize: 20,
     color: '#19456B'
-  },
-  item: {
-    margin: 5,
-    padding: 10,
-    backgroundColor: '#11698E'
-  },
-  itemData: {
-    fontSize: 15,
-    color: '#FFF'
   }
 });
 
