@@ -4,7 +4,8 @@ import {
   StyleSheet,
   Text,
   View,
-  FlatList
+  FlatList,
+  ActivityIndicator
 } from 'react-native';
 
   type clientType = {
@@ -33,13 +34,16 @@ import {
 
 const App = () => {
 
-  const [clients, setClients] = useState<clientType[]>([])
+  const [clients, setClients] = useState<clientType[]>([]);
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     fetch('https://jsonplaceholder.typicode.com/users')
     .then( async (response) => await response.json())
     .then((response) => {
       setClients(response)
+      setLoading(false)
     })
     .catch((error) => { error});
   }, [])
@@ -51,7 +55,10 @@ const App = () => {
           <Text style={styles.headerTitle}>Radium Care</Text>
         </View>
         <Text style={styles.title}>Clients</Text>
-        <FlatList
+        {isLoading && <View>
+           <ActivityIndicator />
+        </View>}
+        {!isLoading && <FlatList
           keyExtractor={(item) => item.id.toString()}
           data={clients}
           renderItem={({item}) => (
@@ -61,7 +68,7 @@ const App = () => {
                 <Text style={styles.itemData}>Email: {item.email}</Text>
             </View>
           )}
-        />
+        />}
       </View>
     </SafeAreaView>
   );
