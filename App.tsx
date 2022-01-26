@@ -19,28 +19,29 @@ const App = () => {
     fetch('https://jsonplaceholder.typicode.com/users')
     .then( async (response) => await response.json())
     .then((response) => {
-      setClients(response)
-      setLoading(false)
+      setClients(response);
+      setLoading(false);
     })
     .catch((error) => { error});
   }
 
   useEffect(() => {
-    onRefresh()
-  }, [])
+    onRefresh();
+  }, []);
 
   return (
     <SafeAreaView>
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Radium Care</Text>
+      </View>
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.headerTitle}>Radium Care</Text>
-        </View>
         <FlatList
           ListHeaderComponent={<Text style={styles.title}>Clients</Text>}
           keyExtractor={(item) => item.id.toString()}
           data={clients}
           refreshing={isLoading}
           onRefresh={onRefresh}
+          style={styles.flatList}
           renderItem={({item}) => (
             <ListItem
               id={item.id}
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
   header: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: 70,
+    height: '10%',
     backgroundColor: '#16C79A'
   },
   headerTitle: {
@@ -73,6 +74,9 @@ const styles = StyleSheet.create({
     margin: 5,
     fontSize: 20,
     color: '#19456B'
+  },
+  flatList: {
+    height: '90%',
   }
 });
 
