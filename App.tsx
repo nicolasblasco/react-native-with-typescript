@@ -46,26 +46,55 @@ const App = () => {
 
   return (
     <SafeAreaView>
-      <View>
-      <Text style={styles.highlight}>React</Text>
-      <FlatList
-        keyExtractor={(item) => item.id.toString()}
-        data={clients}
-        renderItem={({item}) => (
-          <Text style={styles.item}>{item.name}</Text>
-        )}
-      />
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.headerTitle}>Radium Care</Text>
+        </View>
+        <Text style={styles.title}>Clients</Text>
+        <FlatList
+          keyExtractor={(item) => item.id.toString()}
+          data={clients}
+          renderItem={({item}) => (
+            <View style={styles.item}>
+                <Text style={styles.itemData}>ID: {item.id}</Text>
+                <Text style={styles.itemData}>Name: {item.name}</Text>
+                <Text style={styles.itemData}>Email: {item.email}</Text>
+            </View>
+          )}
+        />
       </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  highlight: {
-    fontWeight: '700',
+  container: {
+    alignItems: 'stretch'
+  },
+  header: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 70,
+    backgroundColor: '#16C79A'
+  },
+  headerTitle: {
+    fontSize: 20,
+    color: '#19456B',
+    fontWeight: '700'
+  },
+  title: {
+    margin: 5,
+    fontSize: 20,
+    color: '#19456B'
   },
   item: {
-
+    margin: 5,
+    padding: 10,
+    backgroundColor: '#11698E'
+  },
+  itemData: {
+    fontSize: 15,
+    color: '#FFF'
   }
 });
 
