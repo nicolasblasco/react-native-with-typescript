@@ -7,6 +7,7 @@ import {
   FlatList
 } from 'react-native';
 import clientType from './helper/clientType';
+import Header from './Components/Header';
 import ListItem from './Components/ListItem';
 
 const App = () => {
@@ -22,7 +23,7 @@ const App = () => {
       setClients(response);
       setLoading(false);
     })
-    .catch((error) => { error});
+    .catch((error) => {error});
   }
 
   useEffect(() => {
@@ -30,10 +31,8 @@ const App = () => {
   }, []);
 
   return (
-    <SafeAreaView>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Radium Care</Text>
-      </View>
+    <SafeAreaView style={styles.safeArea}>
+      <Header />
       <View style={styles.container}>
         <FlatList
           ListHeaderComponent={<Text style={styles.title}>Clients</Text>}
@@ -41,7 +40,6 @@ const App = () => {
           data={clients}
           refreshing={isLoading}
           onRefresh={onRefresh}
-          style={styles.flatList}
           renderItem={({item}) => (
             <ListItem
               id={item.id}
@@ -56,27 +54,17 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1
+  },
   container: {
+    flex: 1,
     alignItems: 'stretch'
-  },
-  header: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '10%',
-    backgroundColor: '#16C79A'
-  },
-  headerTitle: {
-    fontSize: 20,
-    color: '#19456B',
-    fontWeight: '700'
   },
   title: {
     margin: 5,
     fontSize: 20,
     color: '#19456B'
-  },
-  flatList: {
-    height: '90%',
   }
 });
 
