@@ -64,6 +64,14 @@ const App = () => {
     }
   };
 
+  //delete client
+
+  const deleteHandler = (id: number) => {
+    setClients((prevClient) => {
+      return prevClient.filter(client => client.id != id)
+    })
+  }
+
   //store data
 
   const storeData = async (value: Data) => {
@@ -110,6 +118,7 @@ const App = () => {
                 id={item.id}
                 name={item.name}
                 email={item.email}
+                onDelete={() => deleteHandler(item.id)}
               />
             )}
           /> :

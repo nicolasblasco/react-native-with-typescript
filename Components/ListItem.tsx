@@ -5,9 +5,10 @@ interface Props {
   id: number;
   name: string;
   email: string;
+  onDelete: () => void;
 }
 
-const ListItem: React.FC<Props> = ({id, name, email}) => {
+const ListItem: React.FC<Props> = ({id, name, email, onDelete}) => {
     return (
       <View style={styles.item}>
         <View>
@@ -19,7 +20,7 @@ const ListItem: React.FC<Props> = ({id, name, email}) => {
           <Pressable style={styles.updateButton}>
             <Text>Update</Text>
           </Pressable>
-          <Pressable style={styles.deleteButton}>
+          <Pressable onPress={onDelete} style={styles.deleteButton}>
             <Text style={styles.delete}>Delete</Text>
           </Pressable>
         </View>
