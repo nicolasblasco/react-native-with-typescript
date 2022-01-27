@@ -1,12 +1,15 @@
-import React, {useState, useEffect, useReducer} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
   Text,
   View,
   FlatList,
-  Alert
+  Alert,
+  Pressable
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import FlipperAsyncStorage from 'rn-flipper-async-storage-advanced';
 import {useForm} from 'react-hook-form';
 import clientType from './helper/clientType';
 import Header from './Components/Header';
@@ -56,17 +59,48 @@ const App = () => {
 
   const onSignInPressed = (data: Data) => {
     if(data.email === admin.email && data.password === admin.password) {
+      storeData(data);
       setLogged(true);
     }
   };
 
+  //store data
+
+  const storeData = async (value: Data) => {
+    try {
+      const jsonValue = JSON.stringify(value)
+      await AsyncStorage.setItem('@storage_Key', jsonValue)
+    } catch (e) {
+      Alert.alert('Error!')
+    }
+  }
+
+  //get data
+
+  const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('@storage_Key')
+      return jsonValue != null ? JSON.parse(jsonValue) : null;
+    } catch(e) {
+      Alert.alert('Error!')
+    }
+  }
+
   return (
     <SafeAreaView style={styles.safeArea}>
+      <FlipperAsyncStorage />
       <Header />
       <View style={styles.container}>
         {
           isLogged ? <FlatList
-            ListHeaderComponent={<Text style={styles.title}>Clients</Text>}
+            ListHeaderComponent={
+              <View style={styles.header}>
+                <Text style={styles.title}>Clients</Text>
+                <Pressable style={styles.addButton}>
+                  <Text style={styles.add}>Add</Text>
+                </Pressable>
+              </View>
+            }
             keyExtractor={(item) => item.id.toString()}
             data={clients}
             refreshing={isLoading}
@@ -131,10 +165,25 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'stretch'
   },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    margin: 5
+  },
   title: {
-    margin: 5,
     fontSize: 20,
     color: '#19456B'
+  },
+  addButton: {
+    alignItems: 'center',
+    padding: 5,
+    width: 70,
+    backgroundColor: '#19456B',
+    borderRadius: 3
+  },
+  add: {
+    color: '#FFFFFF'
   }
   /*LOGIN*/
   ,
