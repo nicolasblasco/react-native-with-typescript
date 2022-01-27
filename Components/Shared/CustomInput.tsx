@@ -1,19 +1,21 @@
 import React from 'react';
-import {View, Text, TextInput, StyleSheet} from 'react-native';
+import {View, Text, TextInput, StyleSheet, KeyboardTypeOptions} from 'react-native';
 import {Controller} from 'react-hook-form';
 
 interface Props {
   control: any,
   name: string,
   rules: object,
-  placeholder: string
+  placeholder: string,
+  keyboardType: KeyboardTypeOptions
 }
 
 const CustomInput: React.FC<Props> =({
   control,
   name,
   rules = {},
-  placeholder
+  placeholder,
+  keyboardType
 }) => {
   return (
     <Controller
@@ -27,6 +29,7 @@ const CustomInput: React.FC<Props> =({
               onChangeText={onChange}
               onBlur={onBlur}
               placeholder={placeholder}
+              keyboardType={keyboardType}
               style={[styles.input, {borderColor: error ? 'red' : '#e8e8e8'},]}>
             </TextInput>
             {error && (

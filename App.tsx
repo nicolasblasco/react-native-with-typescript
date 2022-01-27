@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useReducer} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
   Text,
   View,
-  FlatList
+  FlatList,
+  Alert
 } from 'react-native';
 import {useForm} from 'react-hook-form';
 import clientType from './helper/clientType';
@@ -13,12 +14,22 @@ import ListItem from './Components/ListItem';
 //login
 import CustomInput from './Components/Shared/CustomInput';
 import CustomButton from './Components/Shared/CustomButton';
+interface Data {
+  email: string,
+  password: string
+}
+
+const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
 const App = () => {
 
   const [clients, setClients] = useState<clientType[]>([]);
   const [isLoading, setLoading] = useState(false);
   const [isLogged, setLogged] = useState(false);
+  const admin = {
+    email: 'Admin@gmail.com',
+    password: 'Admin123'
+  }
 
   const onRefresh = () => {
     setLoading(true);
@@ -41,52 +52,72 @@ const App = () => {
     control,
     handleSubmit,
     formState: {errors},
-  } = useForm();
+  } = useForm<Data>();
 
-  const onSignInPressed = () => {
-    console.log('works')
+  const onSignInPressed = (data: Data) => {
+    if(data.email === admin.email && data.password === admin.password) {
+      setLogged(true);
+    }
   };
-
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <Header />
       <View style={styles.container}>
-        <View>
-          <View style={styles.loginView}>
-            <Text style={styles.loginTitle}>Login</Text>
-          </View>
-          <CustomInput
-            name='email'
-            placeholder='Email'
-            control={control}
-            rules={{required: 'Email is required'}}
-          />
-          <CustomInput
-            name='password'
-            placeholder='Password'
-            control={control}
-            rules={{required: 'Password is required'}}
-          />
-          <CustomButton
-            onPress={handleSubmit(onSignInPressed)}
-            text='Submit'
-          />
-        </View>
-        {isLogged && <FlatList
-          ListHeaderComponent={<Text style={styles.title}>Clients</Text>}
-          keyExtractor={(item) => item.id.toString()}
-          data={clients}
-          refreshing={isLoading}
-          onRefresh={onRefresh}
-          renderItem={({item}) => (
-            <ListItem
-              id={item.id}
-              name={item.name}
-              email={item.email}
+        {
+          isLogged ? <FlatList
+            ListHeaderComponent={<Text style={styles.title}>Clients</Text>}
+            keyExtractor={(item) => item.id.toString()}
+            data={clients}
+            refreshing={isLoading}
+            onRefresh={onRefresh}
+            renderItem={({item}) => (
+              <ListItem
+                id={item.id}
+                name={item.name}
+                email={item.email}
+              />
+            )}
+          /> :
+          <View>
+            <View style={styles.loginView}>
+              <Text style={styles.loginTitle}>Login</Text>
+            </View>
+            <CustomInput
+              name='email'
+              placeholder='Email'
+              control={control}
+              keyboardType='email-address'
+              rules={
+                {
+                  required: 'Email is required',
+                  pattern: {
+                    value: emailRegex,
+                    message: 'Email format not valid'
+                  }
+                }
+              }
             />
-          )}
-        />}
+            <CustomInput
+              name='password'
+              placeholder='Password'
+              control={control}
+              keyboardType='default'
+              rules={
+                { required: 'Password is required',
+                  minLength: {
+                    value: 8,
+                    message: 'Password should be minimum 8 characters long',
+                  }
+                }
+              }
+            />
+            <CustomButton
+              onPress={handleSubmit(onSignInPressed)}
+              text='Submit'
+            />
+        </View>
+        }
       </View>
     </SafeAreaView>
   );
