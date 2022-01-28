@@ -11,6 +11,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import FlipperAsyncStorage from 'rn-flipper-async-storage-advanced';
 import {useForm} from 'react-hook-form';
+import Toast from 'react-native-simple-toast';
 import clientType from './helper/clientType';
 import Header from './Components/Header';
 import ListItem from './Components/ListItem';
@@ -59,14 +60,13 @@ const App = () => {
   } = useForm<Data>();
 
   const onSignInPressed = (data: Data) => {
-    if(data.email === admin.email && data.password === admin.password) {
-      storeData(data);
-      setLogged(true);
-    }
-  };
+    if(data.email !== admin.email) return Toast.show('Invalid user, try again.')
+    if (data.password !== admin.password) return Toast.show('Invalid password, try again.')
+    storeData(data);
+    setLogged(true);
+  }
 
   //add client
-
 
   const showAddClient = () => {
     setShowAdd(true)
@@ -80,6 +80,7 @@ const App = () => {
 
   const deleteHandler = (id: number) => {
     setClients((prevClient) => {
+      Toast.show('Client deleted successfully!')
       return prevClient.filter(client => client.id != id)
     })
   }
