@@ -18,7 +18,7 @@ const ListItem: React.FC<Props> = ({id, name, email, onDelete}) => {
         </View>
         <View style={styles.buttonColumn}>
           <Pressable style={styles.updateButton}>
-            <Text>Update</Text>
+            <Text style={styles.update}>Update</Text>
           </Pressable>
           <Pressable onPress={onDelete} style={styles.deleteButton}>
             <Text style={styles.delete}>Delete</Text>
@@ -34,21 +34,30 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     margin: 5,
     padding: 10,
-    backgroundColor: '#11698E'
+    borderLeftColor: '#19456B',
+    borderLeftWidth: 5,
+    backgroundColor: '#F8F1F1'
   },
   data: {
     fontSize: 15,
-    color: '#FFF'
+    color: '#19456B'
   },
   buttonColumn: {
     justifyContent:'space-between'
   },
   updateButton :{
+    alignItems: 'center',
     padding: 3,
     borderRadius: 3,
+    borderWidth: 1,
+    borderColor: '#11698E',
     backgroundColor: '#FFFFFF'
   },
+  update:{
+    color: '#11698E'
+  },
   deleteButton: {
+    alignItems: 'center',
     padding: 3,
     borderRadius: 3,
     backgroundColor: '#DA1212'

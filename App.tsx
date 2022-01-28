@@ -29,6 +29,7 @@ const App = () => {
   const [clients, setClients] = useState<clientType[]>([]);
   const [isLoading, setLoading] = useState(false);
   const [isLogged, setLogged] = useState(false);
+  const [showAdd, setShowAdd] = useState(false);
   const admin = {
     email: 'Admin@gmail.com',
     password: 'Admin123'
@@ -63,6 +64,17 @@ const App = () => {
       setLogged(true);
     }
   };
+
+  //add client
+
+
+  const showAddClient = () => {
+    setShowAdd(true)
+  }
+
+  const closeAddClient = () => {
+    setShowAdd(false)
+  }
 
   //delete client
 
@@ -100,11 +112,51 @@ const App = () => {
       <Header />
       <View style={styles.container}>
         {
-          isLogged ? <FlatList
+          isLogged ?
+          <>
+            {showAdd &&
+              <>
+                <CustomInput
+                name='addEmail'
+                placeholder='Email'
+                control={control}
+                keyboardType='email-address'
+                rules={
+                  {
+                    required: 'Email is required',
+                    pattern: {
+                      value: emailRegex,
+                      message: 'Email format not valid'
+                    }
+                  }
+                }
+                />
+                <CustomInput
+                name='addName'
+                placeholder='Name'
+                control={control}
+                keyboardType='default'
+                rules={
+                  {
+                    required: 'Name is required'
+                  }
+                }
+                />
+                <CustomButton
+                  onPress={closeAddClient}
+                  text='Add'
+                />
+                <CustomButton
+                  onPress={closeAddClient}
+                  text='Close'
+                />
+              </>
+            }
+            <FlatList
             ListHeaderComponent={
               <View style={styles.header}>
                 <Text style={styles.title}>Clients</Text>
-                <Pressable style={styles.addButton}>
+                <Pressable onPress={showAddClient} style={styles.addButton}>
                   <Text style={styles.add}>Add</Text>
                 </Pressable>
               </View>
@@ -121,7 +173,9 @@ const App = () => {
                 onDelete={() => deleteHandler(item.id)}
               />
             )}
-          /> :
+          />
+          </>
+          :
           <View>
             <View style={styles.loginView}>
               <Text style={styles.loginTitle}>Login</Text>
