@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, SafeAreaView} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import {useForm} from 'react-hook-form';
 import Toast from 'react-native-simple-toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -49,48 +49,52 @@ const Login = () => {
   };
 
   return (
-    <SafeAreaView>
-      <View style={styles.loginView}>
-        <Text style={styles.loginTitle}>Login</Text>
+    <View style={styles.container}>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>Login</Text>
       </View>
-      <CustomInput
-        name="email"
-        placeholder="Email"
-        control={control}
-        keyboardType="email-address"
-        rules={{
-          required: 'Email is required',
-          pattern: {
-            value: emailRegex,
-            message: 'Email format not valid',
-          },
-        }}
-      />
-      <CustomInput
-        name="password"
-        placeholder="Password"
-        control={control}
-        keyboardType="default"
-        rules={{
-          required: 'Password is required',
-          minLength: {
-            value: 8,
-            message: 'Password should be minimum 8 characters long',
-          },
-        }}
-      />
-      <CustomButton onPress={handleSubmit(userLogin)} text="Submit" />
-    </SafeAreaView>
+      <View>
+        <CustomInput
+          name="email"
+          placeholder="Email"
+          control={control}
+          keyboardType="email-address"
+          rules={{
+            required: 'Email is required',
+            pattern: {
+              value: emailRegex,
+              message: 'Email format not valid',
+            },
+          }}
+        />
+        <CustomInput
+          name="password"
+          placeholder="Password"
+          control={control}
+          keyboardType="default"
+          rules={{
+            required: 'Password is required',
+            minLength: {
+              value: 8,
+              message: 'Password should be minimum 8 characters long',
+            },
+          }}
+        />
+        <CustomButton onPress={handleSubmit(userLogin)} text="Submit" />
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  loginView: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginVertical: 20,
+  container: {
+    flex: 1,
+    justifyContent: 'space-evenly',
   },
-  loginTitle: {
+  titleContainer: {
+    alignItems: 'center',
+  },
+  title: {
     fontSize: 30,
     color: '#19456B',
   },
