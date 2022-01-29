@@ -8,13 +8,15 @@ import {
   SafeAreaView,
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
-import clientType from '../helper/clientType';
-import ListItem from '../Components/ListItem';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {ClientType, RootStackParamList} from '../../helper/types';
+import ListItem from './Item';
 
-const Clients = () => {
-  const [clients, setClients] = useState<clientType[]>([]);
+type Props = NativeStackScreenProps<RootStackParamList, 'Clients'>;
+
+const Clients = ({navigation}: Props) => {
+  const [clients, setClients] = useState<ClientType[]>([]);
   const [isLoading, setLoading] = useState(false);
-  //const [showAdd, setShowAdd] = useState(false);
 
   const onRefresh = () => {
     setLoading(true);
@@ -32,18 +34,6 @@ const Clients = () => {
   useEffect(() => {
     onRefresh();
   }, []);
-
-  //add client
-
-  /*
-  const showAddClient = () => {
-    setShowAdd(true)
-  }
-
-  const closeAddClient = () => {
-    setShowAdd(false)
-  }
-  */
 
   //delete client
 
@@ -72,7 +62,9 @@ const Clients = () => {
         ListHeaderComponent={
           <View style={styles.header}>
             <Text style={styles.title}>Clients</Text>
-            <Pressable style={styles.addButton}>
+            <Pressable
+              onPress={() => navigation.navigate('ClientForm')}
+              style={styles.addButton}>
               <Text style={styles.add}>Add</Text>
             </Pressable>
           </View>
@@ -87,6 +79,7 @@ const Clients = () => {
             name={item.name}
             email={item.email}
             onDelete={() => deleteHandler(item.id)}
+            onUpdate={() => navigation.navigate('ClientForm')}
           />
         )}
       />

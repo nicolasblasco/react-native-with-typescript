@@ -3,8 +3,8 @@ import {View, Text, StyleSheet, SafeAreaView} from 'react-native';
 import {useForm} from 'react-hook-form';
 import Toast from 'react-native-simple-toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import CustomInput from './Shared/CustomInput';
-import CustomButton from './Shared/CustomButton';
+import CustomInput from '../../Shared/CustomInput';
+import CustomButton from '../../Shared/CustomButton';
 interface Data {
   email: string;
   password: string;
@@ -35,7 +35,6 @@ const Login = () => {
       return Toast.show('Invalid password, try again.');
     }
     storeData(data);
-    //setLogged(true);
   };
 
   //store user's credentials

@@ -1,21 +1,27 @@
 import React from 'react';
-import {View, Text, TextInput, StyleSheet, KeyboardTypeOptions} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  KeyboardTypeOptions,
+} from 'react-native';
 import {Controller} from 'react-hook-form';
 
 interface Props {
-  control: any,
-  name: string,
-  rules: object,
-  placeholder: string,
-  keyboardType: KeyboardTypeOptions
+  control: any;
+  name: string;
+  rules: object;
+  placeholder: string;
+  keyboardType: KeyboardTypeOptions;
 }
 
-const CustomInput: React.FC<Props> =({
+const CustomInput: React.FC<Props> = ({
   control,
   name,
   rules = {},
   placeholder,
-  keyboardType
+  keyboardType,
 }) => {
   return (
     <Controller
@@ -23,19 +29,20 @@ const CustomInput: React.FC<Props> =({
       name={name}
       rules={rules}
       render={({field: {value, onChange, onBlur}, fieldState: {error}}) => (
-          <View style={styles.container}>
-            <TextInput
-              value={value}
-              onChangeText={onChange}
-              onBlur={onBlur}
-              placeholder={placeholder}
-              keyboardType={keyboardType}
-              style={[styles.input, {borderColor: error ? 'red' : '#e8e8e8'},]}>
-            </TextInput>
-            {error && (
-              <Text style={styles.error}>{error.message || 'Error'}</Text>
-            )}
-          </View>
+        <View style={styles.container}>
+          <TextInput
+            value={value}
+            onChangeText={onChange}
+            onBlur={onBlur}
+            placeholder={placeholder}
+            keyboardType={keyboardType}
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={[styles.input, {borderColor: error ? 'red' : '#e8e8e8'}]}
+          />
+          {error && (
+            <Text style={styles.error}>{error.message || 'Error'}</Text>
+          )}
+        </View>
       )}
     />
   );
@@ -43,7 +50,7 @@ const CustomInput: React.FC<Props> =({
 
 const styles = StyleSheet.create({
   container: {
-    height: 90
+    height: 90,
   },
   input: {
     backgroundColor: '#FFFFFF',
@@ -53,13 +60,13 @@ const styles = StyleSheet.create({
     padding: 15,
     marginTop: 10,
     marginBottom: 5,
-    marginHorizontal: 20
+    marginHorizontal: 20,
   },
   error: {
     alignSelf: 'stretch',
     marginHorizontal: 20,
     color: '#DA1212',
-  }
+  },
 });
 
 export default CustomInput;

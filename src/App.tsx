@@ -1,20 +1,15 @@
 import React from 'react';
 //import FlipperAsyncStorage from 'rn-flipper-async-storage-advanced';
-import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Home from './Components/Home';
-import Clients from './Components/Clients';
-
-const Tab = createBottomTabNavigator();
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import FlipperAsyncStorage from 'rn-flipper-async-storage-advanced';
+import Navigator from './routes/homeStack';
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Home" component={Home} options={{title: 'Home'}} />
-        <Tab.Screen name="Clients" component={Clients} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <FlipperAsyncStorage />
+      <Navigator />
+    </SafeAreaProvider>
   );
 };
 

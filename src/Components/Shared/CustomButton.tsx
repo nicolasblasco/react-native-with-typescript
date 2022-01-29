@@ -1,18 +1,16 @@
 import React from 'react';
-import {View, Text, StyleSheet, Pressable} from 'react-native';
+import {Text, StyleSheet, Pressable} from 'react-native';
 
 interface Props {
-  onPress: any,
-  text: string
+  onPress: any;
+  text: string;
 }
 
 const CustomButton: React.FC<Props> = ({onPress, text}) => {
   return (
     <>
       <Pressable onPress={onPress} style={styles.container}>
-        <Text style={styles.text}>
-          {text}
-        </Text>
+        <Text style={styles.text}>{text}</Text>
       </Pressable>
     </>
   );
@@ -24,7 +22,7 @@ const styles = StyleSheet.create({
     margin: 20,
     padding: 15,
     borderRadius: 5,
-    backgroundColor:'#19456B'
+    backgroundColor: '#19456B',
   },
   text: {
     fontWeight: 'bold',
