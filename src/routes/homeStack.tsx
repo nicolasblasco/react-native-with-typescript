@@ -5,7 +5,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../Components/Home';
 import Welcome from '../Components/Welcome';
 import Clients from '../Components/Clients';
-import ClientForm from '../Components/Clients/Form';
+import ClientsForm from '../Components/Clients/Form';
 import Login from '../Components/Auth/Login';
 
 const ClientsStack = createNativeStackNavigator();
@@ -17,14 +17,14 @@ const Navigator = () => {
   const [isLogged, setLogged] = useState(true);
 
   useEffect(() => {
-    setLogged(false);
+    setLogged(true);
   }, []);
 
   function ClientStackScreen() {
     return (
       <ClientsStack.Navigator>
-        <ClientsStack.Screen name="Clients" component={Clients} />
-        <ClientsStack.Screen name="ClientForm" component={ClientForm} />
+        <ClientsStack.Screen name="ClientsList" component={Clients} />
+        <ClientsStack.Screen name="ClientsForm" component={ClientsForm} />
       </ClientsStack.Navigator>
     );
   }

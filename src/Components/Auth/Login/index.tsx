@@ -1,10 +1,9 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableHighlight} from 'react-native';
 import {useForm} from 'react-hook-form';
 import Toast from 'react-native-simple-toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CustomInput from '../../Shared/CustomInput';
-import CustomButton from '../../Shared/CustomButton';
 interface Data {
   email: string;
   password: string;
@@ -80,7 +79,12 @@ const Login = () => {
             },
           }}
         />
-        <CustomButton onPress={handleSubmit(userLogin)} text="Submit" />
+        <TouchableHighlight
+          onPress={handleSubmit(userLogin)}
+          underlayColor="#16C79A"
+          style={styles.button}>
+          <Text style={styles.buttonTitle}>Submit</Text>
+        </TouchableHighlight>
       </View>
     </View>
   );
@@ -97,6 +101,17 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     color: '#19456B',
+  },
+  button: {
+    alignItems: 'center',
+    margin: 20,
+    padding: 15,
+    borderRadius: 5,
+    backgroundColor: '#19456B',
+  },
+  buttonTitle: {
+    fontWeight: 'bold',
+    color: '#FFFFFF',
   },
 });
 

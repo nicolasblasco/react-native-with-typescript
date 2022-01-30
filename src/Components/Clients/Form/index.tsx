@@ -1,96 +1,84 @@
 import React from 'react';
-import {View, Text, StyleSheet, SafeAreaView} from 'react-native';
+import {View, Text, StyleSheet, TouchableHighlight} from 'react-native';
 import {useForm} from 'react-hook-form';
-import Toast from 'react-native-simple-toast';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import CustomInput from '../../Shared/CustomInput';
-import CustomButton from '../../Shared/CustomButton';
-interface Data {
-  email: string;
-  password: string;
-}
+import {ClientType, RootStackParamList} from '../../../helper/types';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-const emailRegex =
-  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+type Props = NativeStackScreenProps<RootStackParamList, 'Clients'>;
 
-const Login = () => {
-  //const [isLogged, setLogged] = useState(false);
-
-  const admin = {
-    email: 'Admin@gmail.com',
-    password: 'Admin123',
-  };
+const ClientsForm = ({navigation}: Props) => {
+  const emailRegex =
+    /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
   const {
     control,
-    handleSubmit,
-    //formState: {errors},
-  } = useForm<Data>();
-
-  const userLogin = (data: Data) => {
-    if (data.email !== admin.email) {
-      return Toast.show('Invalid user, try again.');
-    }
-    if (data.password !== admin.password) {
-      return Toast.show('Invalid password, try again.');
-    }
-    storeData(data);
-    //setLogged(true);
-  };
-
-  //store user's credentials
-
-  const storeData = async (value: Data) => {
-    try {
-      const jsonValue = JSON.stringify(value);
-      await AsyncStorage.setItem('@storage_Key', jsonValue);
-    } catch (e) {
-      console.log('Error!');
-    }
-  };
+    //handleSubmit,
+    formState: {},
+  } = useForm<ClientType>();
 
   return (
-    <SafeAreaView>
-      <View style={styles.clientView}>
-        <Text style={styles.clientTitle}>Client</Text>
+    <View style={styles.container}>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>Add or Update Client</Text>
       </View>
-      <CustomInput
-        name="email"
-        placeholder="Email"
-        control={control}
-        keyboardType="email-address"
-        rules={{
-          required: 'Email is required',
-          pattern: {
-            value: emailRegex,
-            message: 'Email format not valid',
-          },
-        }}
-      />
-      <CustomInput
-        name="name"
-        placeholder="Name"
-        control={control}
-        keyboardType="default"
-        rules={{
-          required: 'Name is required',
-        }}
-      />
-      <CustomButton onPress={handleSubmit(userLogin)} text="Submit" />
-    </SafeAreaView>
+      <View>
+        <CustomInput
+          name="email"
+          placeholder="Email"
+          control={control}
+          keyboardType="email-address"
+          rules={{
+            required: 'Email is required',
+            pattern: {
+              value: emailRegex,
+              message: 'Email format not valid',
+            },
+          }}
+        />
+        <CustomInput
+          name="name"
+          placeholder="Name"
+          control={control}
+          keyboardType="default"
+          rules={{
+            required: 'Name is required',
+          }}
+        />
+        <TouchableHighlight
+          onPress={() => navigation.navigate('Clients')}
+          underlayColor="#16C79A"
+          style={styles.button}>
+          <Text style={styles.buttonTitle}>Submit</Text>
+        </TouchableHighlight>
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  clientView: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginVertical: 20,
+  container: {
+    flex: 1,
+    justifyContent: 'space-evenly',
   },
-  clientTitle: {
+  titleContainer: {
+    alignItems: 'center',
+  },
+  title: {
     fontSize: 30,
     color: '#19456B',
   },
+  button: {
+    alignItems: 'center',
+    margin: 20,
+    padding: 15,
+    borderRadius: 5,
+    backgroundColor: '#19456B',
+  },
+  buttonTitle: {
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+  },
 });
 
-export default Login;
+export default ClientsForm;

@@ -26,5 +26,5 @@ export type RootStackParamList = {
   Login: undefined;
   Home: undefined;
   Clients: undefined;
-  ClientForm: undefined;
+  ClientsForm: undefined;
 };

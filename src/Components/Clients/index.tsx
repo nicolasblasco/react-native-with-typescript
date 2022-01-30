@@ -4,7 +4,7 @@ import {
   Text,
   View,
   FlatList,
-  Pressable,
+  TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
@@ -62,11 +62,12 @@ const Clients = ({navigation}: Props) => {
         ListHeaderComponent={
           <View style={styles.header}>
             <Text style={styles.title}>Clients</Text>
-            <Pressable
-              onPress={() => navigation.navigate('ClientForm')}
+            <TouchableOpacity
+              onPress={() => navigation.navigate('ClientsForm')}
+              activeOpacity={0.4}
               style={styles.addButton}>
               <Text style={styles.add}>Add</Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         }
         keyExtractor={item => item.id.toString()}
@@ -79,7 +80,7 @@ const Clients = ({navigation}: Props) => {
             name={item.name}
             email={item.email}
             onDelete={() => deleteHandler(item.id)}
-            onUpdate={() => navigation.navigate('ClientForm')}
+            onUpdate={() => navigation.navigate('ClientsForm')}
           />
         )}
       />
