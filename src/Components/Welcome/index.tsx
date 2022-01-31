@@ -4,7 +4,7 @@ import CustomButton from '../Shared/CustomButton';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../helper/types';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Clients'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
 
 const Welcome = ({navigation}: Props) => {
   return (
