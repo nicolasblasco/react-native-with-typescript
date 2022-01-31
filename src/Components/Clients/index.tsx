@@ -10,7 +10,7 @@ import {
 import Toast from 'react-native-simple-toast';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {ClientType, RootStackParamList} from '../../helper/types';
-import ListItem from './Item';
+import ListItem from '../Shared/Item';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ClientsList'>;
 

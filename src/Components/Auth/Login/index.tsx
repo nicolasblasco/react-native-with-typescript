@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, TouchableHighlight} from 'react-native';
 import {useForm} from 'react-hook-form';
 import Toast from 'react-native-simple-toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import CustomInput from '../../Shared/CustomInput';
+import CustomInput from '../../Shared/Custom Input';
 interface Data {
   email: string;
   password: string;

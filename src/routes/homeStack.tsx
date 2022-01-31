@@ -6,8 +6,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Home from '../Components/Home';
 import Welcome from '../Components/Welcome';
 import Clients from '../Components/Clients';
-import AddClientForm from '../Components/Clients/AddForm';
-import UpdateClientForm from '../Components/Clients/UpdateForm ';
+import AddClientForm from '../Components/AddForm';
+import UpdateClientForm from '../Components/UpdateForm ';
 import Login from '../Components/Auth/Login';
 
 const ClientsStack = createNativeStackNavigator();

@@ -1,56 +1,52 @@
 import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, TouchableHighlight} from 'react-native';
 import {useForm, SubmitHandler} from 'react-hook-form';
-import CustomInput from '../../Shared/CustomInput';
-import {ClientType, RootStackParamList} from '../../../helper/types';
+import CustomInput from '../Shared/Custom Input';
+import {ClientType, RootStackParamList} from '../../helper/types';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'UpdateClientForm'>;
-
-interface updateClient {
+type Props = NativeStackScreenProps<RootStackParamList, 'AddClientForm'>;
+interface newClient {
   id: number;
   name: string;
   email: string;
 }
 
-const UpdateClientForm = ({navigation, route}: Props) => {
+const AddClientForm = ({navigation, route}: Props) => {
   const emailRegex =
     /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
   const params = route.params;
   const clients = params.clients;
-  const selectedClient = params.selectedClient;
+  //VER
   const setClients = params.setClients;
+
+  useEffect(() => {
+    console.log(clients);
+  }, [clients]);
 
   const {
     control,
     handleSubmit,
-    setValue,
     formState: {},
   } = useForm<ClientType>();
 
-  useEffect(() => {
-    setValue('name', selectedClient.name);
-    setValue('email', selectedClient.email);
-  }, [selectedClient.email, selectedClient.name, setValue]);
-
-  const updateClient: SubmitHandler<updateClient> = data => {
-    setClients(
-      clients.map(client => {
-        if (client.id === selectedClient.id) {
-          client.name = data.name;
-          client.email = data.email;
-        }
-        return client;
-      }),
-    );
+  const addClient: SubmitHandler<newClient> = data => {
+    setClients([
+      ...clients,
+      {
+        id: Math.max(...clients.map(o => o.id), 0) + 1,
+        name: data.name,
+        email: data.email,
+      },
+    ]);
     navigation.navigate('ClientsList');
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>Update Client</Text>
+        <Text style={styles.title}>Add Client</Text>
       </View>
       <View>
         <CustomInput
@@ -76,7 +72,7 @@ const UpdateClientForm = ({navigation, route}: Props) => {
           }}
         />
         <TouchableHighlight
-          onPress={handleSubmit(updateClient)}
+          onPress={handleSubmit(addClient)}
           underlayColor="#16C79A"
           style={styles.button}>
           <Text style={styles.buttonTitle}>Submit</Text>
@@ -111,4 +107,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UpdateClientForm;
+export default AddClientForm;
