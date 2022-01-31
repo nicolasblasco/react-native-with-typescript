@@ -1,5 +1,4 @@
 import React from 'react';
-//import FlipperAsyncStorage from 'rn-flipper-async-storage-advanced';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import FlipperAsyncStorage from 'rn-flipper-async-storage-advanced';
 import Navigator from './routes/homeStack';
