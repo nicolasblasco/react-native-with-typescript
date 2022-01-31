@@ -6,7 +6,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Home from '../Components/Home';
 import Welcome from '../Components/Welcome';
 import Clients from '../Components/Clients';
-import ClientsForm from '../Components/Clients/Form';
+import AddClientForm from '../Components/Clients/AddForm';
+import UpdateClientForm from '../Components/Clients/UpdateForm ';
 import Login from '../Components/Auth/Login';
 
 const ClientsStack = createNativeStackNavigator();
@@ -28,7 +29,11 @@ const Navigator = () => {
           headerTitle: '',
         }}>
         <ClientsStack.Screen name="ClientsList" component={Clients} />
-        <ClientsStack.Screen name="ClientsForm" component={ClientsForm} />
+        <ClientsStack.Screen name="AddClientForm" component={AddClientForm} />
+        <ClientsStack.Screen
+          name="UpdateClientForm"
+          component={UpdateClientForm}
+        />
       </ClientsStack.Navigator>
     );
   }

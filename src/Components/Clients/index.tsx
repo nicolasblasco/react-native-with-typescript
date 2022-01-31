@@ -12,7 +12,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {ClientType, RootStackParamList} from '../../helper/types';
 import ListItem from './Item';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Clients'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'ClientsList'>;
 
 const Clients = ({navigation}: Props) => {
   const [clients, setClients] = useState<ClientType[]>([]);
@@ -45,16 +45,15 @@ const Clients = ({navigation}: Props) => {
   };
 
   //get data
-  /*
-  const getData = async () => {
-    try {
-      const jsonValue = await AsyncStorage.getItem('@storage_Key')
-      return jsonValue != null ? JSON.parse(jsonValue) : null;
-    } catch(e) {
-      Alert.alert('Error!')
-    }
-  }
-  */
+
+  // const getData = async () => {
+  //   try {
+  //     const jsonValue = await AsyncStorage.getItem('@storage_Key')
+  //     return jsonValue != null ? JSON.parse(jsonValue) : null;
+  //   } catch(e) {
+  //     Alert.alert('Error!')
+  //   }
+  // }
 
   return (
     <SafeAreaView>
@@ -63,7 +62,12 @@ const Clients = ({navigation}: Props) => {
           <View style={styles.header}>
             <Text style={styles.title}>Clients</Text>
             <TouchableOpacity
-              onPress={() => navigation.navigate('ClientsForm')}
+              onPress={() =>
+                navigation.navigate('AddClientForm', {
+                  clients: clients,
+                  setClients: setClients,
+                })
+              }
               activeOpacity={0.4}
               style={styles.addButton}>
               <Text style={styles.add}>Add</Text>
@@ -80,7 +84,17 @@ const Clients = ({navigation}: Props) => {
             name={item.name}
             email={item.email}
             onDelete={() => deleteHandler(item.id)}
-            onUpdate={() => navigation.navigate('ClientsForm')}
+            onUpdate={() =>
+              navigation.navigate('UpdateClientForm', {
+                clients: clients,
+                selectedClient: {
+                  id: item.id,
+                  name: item.name,
+                  email: item.email,
+                },
+                setClients: setClients,
+              })
+            }
           />
         )}
       />

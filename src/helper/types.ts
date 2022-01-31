@@ -1,9 +1,9 @@
 export type ClientType = {
   id: number;
   name: string;
-  username: string;
+  username?: string;
   email: string;
-  address: {
+  address?: {
     street: string;
     suite: string;
     city: string;
@@ -13,9 +13,9 @@ export type ClientType = {
       lng: number;
     };
   };
-  phone: string;
-  website: string;
-  company: {
+  phone?: string;
+  website?: string;
+  company?: {
     name: string;
     catchPhrase: string;
     bs: string;
@@ -25,6 +25,18 @@ export type ClientType = {
 export type RootStackParamList = {
   Login: undefined;
   Home: undefined;
-  Clients: undefined;
-  ClientsForm: undefined;
+  ClientsList: undefined;
+  AddClientForm: {
+    clients: ClientType[];
+    setClients: React.Dispatch<React.SetStateAction<ClientType[]>>;
+  };
+  UpdateClientForm: {
+    clients: ClientType[];
+    selectedClient: {
+      id: number;
+      name: string;
+      email: string;
+    };
+    setClients: React.Dispatch<React.SetStateAction<ClientType[]>>;
+  };
 };
