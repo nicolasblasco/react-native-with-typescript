@@ -64,8 +64,8 @@ const Clients = ({navigation}: Props) => {
             <TouchableOpacity
               onPress={() =>
                 navigation.navigate('AddClientForm', {
-                  clients: clients,
-                  setClients: setClients,
+                  clients,
+                  setClients,
                 })
               }
               activeOpacity={0.4}
@@ -86,13 +86,13 @@ const Clients = ({navigation}: Props) => {
             onDelete={() => deleteHandler(item.id)}
             onUpdate={() =>
               navigation.navigate('UpdateClientForm', {
-                clients: clients,
+                clients,
                 selectedClient: {
                   id: item.id,
                   name: item.name,
                   email: item.email,
                 },
-                setClients: setClients,
+                setClients,
               })
             }
           />

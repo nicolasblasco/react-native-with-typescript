@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -10,31 +10,27 @@ import AddClientForm from '../Components/AddForm';
 import UpdateClientForm from '../Components/UpdateForm ';
 import Login from '../Components/Auth/Login';
 
-const ClientsStack = createNativeStackNavigator();
-
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const Navigator = () => {
-  const [isLogged, setLogged] = useState(true);
+  const [isLogged, setLogged] = useState(false);
 
   useEffect(() => {
     setLogged(true);
   }, []);
 
-  function ClientStackScreen() {
+  function ClientsStackScreen() {
     return (
-      <ClientsStack.Navigator
+      <Stack.Navigator
         screenOptions={{
+          headerShown: true,
           headerTitle: '',
         }}>
-        <ClientsStack.Screen name="ClientsList" component={Clients} />
-        <ClientsStack.Screen name="AddClientForm" component={AddClientForm} />
-        <ClientsStack.Screen
-          name="UpdateClientForm"
-          component={UpdateClientForm}
-        />
-      </ClientsStack.Navigator>
+        <Stack.Screen name="ClientsList" component={Clients} />
+        <Stack.Screen name="AddClientForm" component={AddClientForm} />
+        <Stack.Screen name="UpdateClientForm" component={UpdateClientForm} />
+      </Stack.Navigator>
     );
   }
 
@@ -66,7 +62,7 @@ const Navigator = () => {
           tabBarInactiveTintColor: 'gray',
         })}>
         <Tab.Screen name="Home" component={Home} options={{title: 'Home'}} />
-        <Tab.Screen name="Clients" component={ClientStackScreen} />
+        <Tab.Screen name="Clients" component={ClientsStackScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   ) : (
