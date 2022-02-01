@@ -1,26 +1,22 @@
 import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, TouchableHighlight} from 'react-native';
-import {useForm, SubmitHandler} from 'react-hook-form';
-import CustomInput from '../Shared/Custom Input';
-import {ClientType, RootStackParamList} from '../../helper/types';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useForm, SubmitHandler} from 'react-hook-form';
+import {ClientType, RootStackParamList} from '../../helper/types';
+import CustomInput from '../Shared/Custom Input';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'UpdateClientForm'>;
-
 interface updateClient {
   id: number;
   name: string;
   email: string;
 }
 
-const UpdateClientForm = ({navigation, route}: Props) => {
-  const emailRegex =
-    /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+const emailRegex =
+  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-  const params = route.params;
-  const clients = params.clients;
-  const selectedClient = params.selectedClient;
-  const setClients = params.setClients;
+const UpdateClientForm = ({navigation, route}: Props) => {
+  const {clients, selectedClient, setClients} = route.params;
 
   const {
     control,

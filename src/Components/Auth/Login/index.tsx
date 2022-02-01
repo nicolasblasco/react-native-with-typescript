@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableHighlight} from 'react-native';
-import {useForm} from 'react-hook-form';
 import Toast from 'react-native-simple-toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useForm} from 'react-hook-form';
 import CustomInput from '../../Shared/Custom Input';
 interface Data {
   email: string;
@@ -13,18 +13,16 @@ const emailRegex =
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
 const Login = () => {
-  //const [isLogged, setLogged] = useState(false);
-
-  const admin = {
-    email: 'Admin@gmail.com',
-    password: 'Admin123',
-  };
-
   const {
     control,
     handleSubmit,
     //formState: {errors},
   } = useForm<Data>();
+
+  const admin = {
+    email: 'Admin@gmail.com',
+    password: 'Admin123',
+  };
 
   const userLogin = (data: Data) => {
     if (data.email !== admin.email) {
