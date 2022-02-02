@@ -1,22 +1,20 @@
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {View, Text, StyleSheet, TouchableHighlight} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {useForm, SubmitHandler} from 'react-hook-form';
+import {useForm} from 'react-hook-form';
 import {ClientType, RootStackParamList} from '../../helper/types';
 import CustomInput from '../Shared/Custom Input';
+import {ClientsContext} from '../../context/ClientsContext';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'UpdateClientForm'>;
-interface updateClient {
-  id: number;
-  name: string;
-  email: string;
-}
 
 const emailRegex =
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
 const UpdateClientForm = ({navigation, route}: Props) => {
-  const {clients, selectedClient, setClients} = route.params;
+  const clientsContext = useContext(ClientsContext);
+  const {client} = route.params;
+  const [id, setId] = useState<number>(-1);
 
   const {
     control,
@@ -26,20 +24,15 @@ const UpdateClientForm = ({navigation, route}: Props) => {
   } = useForm<ClientType>();
 
   useEffect(() => {
-    setValue('name', selectedClient.name);
-    setValue('email', selectedClient.email);
-  }, [selectedClient.email, selectedClient.name, setValue]);
+    if (client) {
+      setValue('name', client?.name);
+      setValue('email', client?.email);
+      setId(client?.id);
+    }
+  }, [client, setValue]);
 
-  const updateClient: SubmitHandler<updateClient> = data => {
-    setClients(
-      clients.map(client => {
-        if (client.id === selectedClient.id) {
-          client.name = data.name;
-          client.email = data.email;
-        }
-        return client;
-      }),
-    );
+  const onSubmit = (data: ClientType) => {
+    clientsContext?.updateClient({...data, id});
     navigation.navigate('ClientsList');
   };
 
@@ -72,7 +65,7 @@ const UpdateClientForm = ({navigation, route}: Props) => {
           }}
         />
         <TouchableHighlight
-          onPress={handleSubmit(updateClient)}
+          onPress={handleSubmit(onSubmit)}
           underlayColor="#16C79A"
           style={styles.button}>
           <Text style={styles.buttonTitle}>Submit</Text>

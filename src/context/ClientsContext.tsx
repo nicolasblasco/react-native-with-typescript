@@ -1,4 +1,4 @@
-import React, {FC, useState, useEffect} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {createContext} from 'react';
 import {ClientType, iClientContext} from '../helper/types';
 import Toast from 'react-native-simple-toast';
@@ -8,6 +8,10 @@ export const ClientsContext = createContext<iClientContext | null>(null);
 const ClientsContextProvider: FC = ({children}) => {
   const [clients, setClients] = useState<ClientType[]>([]);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    getClients();
+  }, []);
 
   const getClients = () => {
     setLoading(true);
@@ -21,10 +25,6 @@ const ClientsContextProvider: FC = ({children}) => {
         error;
       });
   };
-
-  useEffect(() => {
-    getClients();
-  }, []);
 
   const deleteClient = (id: number) => {
     setClients(prevClient => {
@@ -51,7 +51,6 @@ const ClientsContextProvider: FC = ({children}) => {
           c.name = client.name;
           c.email = client.email;
         }
-
         return c;
       }),
     );

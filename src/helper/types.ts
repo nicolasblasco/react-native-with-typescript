@@ -1,25 +1,7 @@
 export type ClientType = {
   id: number;
   name: string;
-  username?: string;
   email: string;
-  address?: {
-    street: string;
-    suite: string;
-    city: string;
-    zipcode: string;
-    geo: {
-      lat: number;
-      lng: number;
-    };
-  };
-  phone?: string;
-  website?: string;
-  company?: {
-    name: string;
-    catchPhrase: string;
-    bs: string;
-  };
 };
 
 export type RootStackParamList = {
@@ -27,26 +9,12 @@ export type RootStackParamList = {
   Login: undefined;
   Home: undefined;
   ClientsList: undefined;
-  AddClientForm: {
-    // clients: ClientType[];
-    // setClients: React.Dispatch<React.SetStateAction<ClientType[]>>;
-    client?: ClientType | undefined;
-    onSubmit: (client: ClientType) => void;
-  };
+  AddClientForm: undefined;
   UpdateClientForm: {
-    // clients: ClientType[];
-    // selectedClient: {
-    //   id: number;
-    //   name: string;
-    //   email: string;
-    // };
-    // setClients: React.Dispatch<React.SetStateAction<ClientType[]>>;
-    clientId?: number;
     client?: ClientType | undefined;
-    onSubmit: (client: ClientType) => void;
+    //clientId: number;
   };
 };
-
 export interface iClientContext {
   clients: ClientType[] | null;
   loading: boolean;

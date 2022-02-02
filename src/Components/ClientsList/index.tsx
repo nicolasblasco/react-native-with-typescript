@@ -1,12 +1,5 @@
 import React, {useContext} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  TouchableOpacity,
-  SafeAreaView,
-} from 'react-native';
+import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../helper/types';
 import ListItem from '../Shared/Item';
@@ -17,36 +10,14 @@ type Props = NativeStackScreenProps<RootStackParamList, 'ClientsList'>;
 const ClientsList = ({navigation}: Props) => {
   const clientsContext = useContext(ClientsContext);
 
-  const onCreateClient = () => {
-    navigation.navigate('AddClientForm', {
-      onSubmit: client => {
-        clientsContext?.createClient(client);
-        navigation.navigate('ClientsList');
-      }
-    });
-
-  const onUpdateClient = (clientId: number) => {
-    navigation.navigate('UpdateClientForm', {
-      clientId,
-      onSubmit: client => clientsContext?.updateClient(client),
-      client: clientsContext?.clients?.find(
-        c => c.id.toString() === clientId?.toString(),
-      )
-    });
-  };
-
-  const onDeleteClient = (id: number) => {
-    clientsContext?.deleteClient(id);
-  };
-
   return (
-    <SafeAreaView>
+    <View>
       <FlatList
         ListHeaderComponent={
           <View style={styles.header}>
             <Text style={styles.title}>Clients</Text>
             <TouchableOpacity
-              onPress={onCreateClient}
+              onPress={() => navigation.navigate('AddClientForm')}
               activeOpacity={0.4}
               style={styles.addButton}>
               <Text style={styles.add}>Add</Text>
@@ -61,13 +32,16 @@ const ClientsList = ({navigation}: Props) => {
             id={item.id}
             name={item.name}
             email={item.email}
-            onDelete={() => onDeleteClient(item.id)}
-            onUpdate={() => onUpdateClient(item.id)
+            onDelete={() => clientsContext?.deleteClient(item.id)}
+            onUpdate={() =>
+              navigation.navigate('UpdateClientForm', {
+                client: item,
+              })
             }
           />
         )}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 

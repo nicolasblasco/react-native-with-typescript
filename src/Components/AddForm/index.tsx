@@ -1,28 +1,29 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {View, Text, StyleSheet, TouchableHighlight} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useForm} from 'react-hook-form';
 import {ClientType, RootStackParamList} from '../../helper/types';
 import CustomInput from '../Shared/Custom Input';
+import {ClientsContext} from '../../context/ClientsContext';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'AddClientForm'>;
-// interface newClient {
-//   id: number;
-//   name: string;
-//   email: string;
-// }
 
 const emailRegex =
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-const AddClientForm = ({route}: Props) => {
+const AddClientForm = ({navigation}: Props) => {
+  const clientsContext = useContext(ClientsContext);
+
   const {
     control,
     handleSubmit,
     formState: {},
   } = useForm<ClientType>();
 
-  const {onSubmit} = route.params;
+  const onSubmit = (data: ClientType) => {
+    clientsContext?.createClient(data);
+    navigation.navigate('ClientsList');
+  };
 
   //const {clients, setClients} = route.params;
 
