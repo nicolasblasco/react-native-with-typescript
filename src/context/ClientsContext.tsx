@@ -2,6 +2,7 @@ import React, {FC, useEffect, useState} from 'react';
 import {createContext} from 'react';
 import {ClientType, iClientContext} from '../helper/types';
 import Toast from 'react-native-simple-toast';
+import fetch from 'cross-fetch';
 
 export const ClientsContext = createContext<iClientContext | null>(null);
 
@@ -16,7 +17,7 @@ const ClientsContextProvider: FC = ({children}) => {
   const getClients = () => {
     setLoading(true);
     fetch('https://jsonplaceholder.typicode.com/users')
-      .then(response => response.json())
+      .then(async response => await response.json())
       .then(response => {
         setClients(response);
         setLoading(false);
