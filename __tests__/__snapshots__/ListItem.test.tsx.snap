@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ListItem Renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#F8F1F1",
+      "borderLeftColor": "#19456B",
+      "borderLeftWidth": 5,
+      "flexDirection": "row",
+      "justifyContent": "space-between",
+      "margin": 5,
+      "padding": 10,
+    }
+  }
+>
+  <View>
+    <Text
+      style={
+        Object {
+          "color": "#19456B",
+          "fontSize": 15,
+        }
+      }
+    >
+      ID: 
+      1
+    </Text>
+    <Text
+      style={
+        Object {
+          "color": "#19456B",
+          "fontSize": 15,
+        }
+      }
+    >
+      Name: 
+      test
+    </Text>
+    <Text
+      style={
+        Object {
+          "color": "#19456B",
+          "fontSize": 15,
+        }
+      }
+    >
+      Email: 
+      test@gmail.com
+    </Text>
+  </View>
+  <View
+    style={
+      Object {
+        "justifyContent": "space-between",
+      }
+    }
+  >
+    <View
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      nativeID="animatedComponent"
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#FFFFFF",
+          "borderColor": "#11698E",
+          "borderRadius": 3,
+          "borderWidth": 1,
+          "opacity": 1,
+          "padding": 3,
+        }
+      }
+      testID="update-button"
+    >
+      <Text
+        style={
+          Object {
+            "color": "#11698E",
+          }
+        }
+      >
+        Update
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      nativeID="animatedComponent"
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#DA1212",
+          "borderRadius": 3,
+          "opacity": 1,
+          "padding": 3,
+        }
+      }
+      testID="delete-button"
+    >
+      <Text
+        style={
+          Object {
+            "color": "#FFFFFF",
+          }
+        }
+      >
+        Delete
+      </Text>
+    </View>
+  </View>
+</View>
+`;

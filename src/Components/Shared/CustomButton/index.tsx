@@ -4,12 +4,13 @@ import {Text, StyleSheet, Pressable} from 'react-native';
 interface Props {
   onPress: any;
   text: string;
+  testID?: string;
 }
 
-const CustomButton: React.FC<Props> = ({onPress, text}) => {
+const CustomButton: React.FC<Props> = ({onPress, text, testID}) => {
   return (
     <>
-      <Pressable onPress={onPress} style={styles.container}>
+      <Pressable onPress={onPress} style={styles.container} testID={testID}>
         <Text style={styles.text}>{text}</Text>
       </Pressable>
     </>

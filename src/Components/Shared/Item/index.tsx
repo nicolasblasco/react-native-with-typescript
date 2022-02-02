@@ -21,13 +21,15 @@ const ListItem: React.FC<Props> = ({id, name, email, onDelete, onUpdate}) => {
         <TouchableOpacity
           onPress={onUpdate}
           activeOpacity={0.6}
-          style={styles.updateButton}>
+          style={styles.updateButton}
+          testID="update-button">
           <Text style={styles.update}>Update</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={onDelete}
           activeOpacity={0.4}
-          style={styles.deleteButton}>
+          style={styles.deleteButton}
+          testID="delete-button">
           <Text style={styles.delete}>Delete</Text>
         </TouchableOpacity>
       </View>
