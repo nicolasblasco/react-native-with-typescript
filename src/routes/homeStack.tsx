@@ -5,7 +5,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Home from '../Components/Home';
 import Welcome from '../Components/Welcome';
-import Clients from '../Components/Clients';
+import ClientsList from '../Components/ClientsList';
 import AddClientForm from '../Components/AddForm';
 import UpdateClientForm from '../Components/UpdateForm ';
 import Login from '../Components/Auth/Login';
@@ -27,7 +27,7 @@ const Navigator = () => {
           headerShown: true,
           headerTitle: '',
         }}>
-        <Stack.Screen name="ClientsList" component={Clients} />
+        <Stack.Screen name="ClientsList" component={ClientsList} />
         <Stack.Screen name="AddClientForm" component={AddClientForm} />
         <Stack.Screen name="UpdateClientForm" component={UpdateClientForm} />
       </Stack.Navigator>

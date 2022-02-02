@@ -1,40 +1,42 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableHighlight} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {useForm, SubmitHandler} from 'react-hook-form';
+import {useForm} from 'react-hook-form';
 import {ClientType, RootStackParamList} from '../../helper/types';
 import CustomInput from '../Shared/Custom Input';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'AddClientForm'>;
-interface newClient {
-  id: number;
-  name: string;
-  email: string;
-}
+// interface newClient {
+//   id: number;
+//   name: string;
+//   email: string;
+// }
 
 const emailRegex =
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-const AddClientForm = ({navigation, route}: Props) => {
+const AddClientForm = ({route}: Props) => {
   const {
     control,
     handleSubmit,
     formState: {},
   } = useForm<ClientType>();
 
-  const {clients, setClients} = route.params;
+  const {onSubmit} = route.params;
 
-  const addClient: SubmitHandler<newClient> = data => {
-    setClients([
-      ...clients,
-      {
-        id: Math.max(...clients.map(o => o.id), 0) + 1,
-        name: data.name,
-        email: data.email,
-      },
-    ]);
-    navigation.navigate('ClientsList');
-  };
+  //const {clients, setClients} = route.params;
+
+  // const addClient: SubmitHandler<newClient> = data => {
+  //   setClients([
+  //     ...clients,
+  //     {
+  //       id: Math.max(...clients.map(o => o.id), 0) + 1,
+  //       name: data.name,
+  //       email: data.email,
+  //     },
+  //   ]);
+  //   navigation.navigate('ClientsList');
+  // };
 
   return (
     <View style={styles.container}>
@@ -65,7 +67,7 @@ const AddClientForm = ({navigation, route}: Props) => {
           }}
         />
         <TouchableHighlight
-          onPress={handleSubmit(addClient)}
+          onPress={handleSubmit(onSubmit)}
           underlayColor="#16C79A"
           style={styles.button}>
           <Text style={styles.buttonTitle}>Submit</Text>
