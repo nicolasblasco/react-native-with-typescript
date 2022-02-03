@@ -9,6 +9,7 @@ import ClientsList from '../Components/ClientsList';
 import AddClientForm from '../Components/AddForm';
 import UpdateClientForm from '../Components/UpdateForm ';
 import Login from '../Components/Auth/Login';
+import User from '../Components/User';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -56,6 +57,14 @@ const Navigator = () => {
                   color={color}
                 />
               );
+            } else if (route.name === 'User') {
+              return (
+                <Ionicons
+                  name={focused ? 'person-circle' : 'person-circle-outline'}
+                  size={size}
+                  color={color}
+                />
+              );
             }
           },
           tabBarActiveTintColor: '#16C79A',
@@ -63,6 +72,7 @@ const Navigator = () => {
         })}>
         <Tab.Screen name="Home" component={Home} options={{title: 'Home'}} />
         <Tab.Screen name="Clients" component={ClientsStackScreen} />
+        <Stack.Screen name="User" component={User} />
       </Tab.Navigator>
     </NavigationContainer>
   ) : (

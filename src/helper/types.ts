@@ -8,11 +8,11 @@ export type RootStackParamList = {
   Welcome: undefined;
   Login: undefined;
   Home: undefined;
+  User: undefined;
   ClientsList: undefined;
   AddClientForm: undefined;
   UpdateClientForm: {
     client?: ClientType | undefined;
-    //clientId: number;
   };
 };
 export interface iClientContext {
