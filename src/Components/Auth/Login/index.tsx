@@ -4,7 +4,11 @@ import Toast from 'react-native-simple-toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useForm} from 'react-hook-form';
 import CustomInput from '../../Shared/Custom Input';
-interface Data {
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../../helper/types';
+
+type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
+interface User {
   email: string;
   password: string;
 }
@@ -12,19 +16,20 @@ interface Data {
 const emailRegex =
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-const Login = () => {
+const Login = ({route}: Props) => {
+  const {setIsLogged} = route.params;
   const {
     control,
     handleSubmit,
     //formState: {errors},
-  } = useForm<Data>();
+  } = useForm<User>();
 
   const admin = {
     email: 'Admin@gmail.com',
     password: 'Admin123',
   };
 
-  const userLogin = (data: Data) => {
+  const userLogin = (data: User) => {
     if (data.email !== admin.email) {
       return Toast.show('Invalid user, try again.');
     }
@@ -32,11 +37,12 @@ const Login = () => {
       return Toast.show('Invalid password, try again.');
     }
     storeData(data);
+    setIsLogged(true);
   };
 
   //store user's credentials
 
-  const storeData = async (value: Data) => {
+  const storeData = async (value: User) => {
     try {
       const jsonValue = JSON.stringify(value);
       await AsyncStorage.setItem('@storage_Key', jsonValue);

@@ -15,10 +15,10 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const Navigator = () => {
-  const [isLogged, setLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
 
   useEffect(() => {
-    setLogged(true);
+    setIsLogged(false);
   }, []);
 
   function ClientsStackScreen() {
@@ -70,7 +70,11 @@ const Navigator = () => {
           tabBarActiveTintColor: '#16C79A',
           tabBarInactiveTintColor: 'gray',
         })}>
-        <Tab.Screen name="Home" component={Home} options={{title: 'Home'}} />
+        <Tab.Screen
+          name="Home"
+          component={Home}
+          initialParams={{setIsLogged: setIsLogged}}
+        />
         <Tab.Screen name="Clients" component={ClientsStackScreen} />
         <Stack.Screen name="User" component={User} />
       </Tab.Navigator>
@@ -82,7 +86,11 @@ const Navigator = () => {
           headerTitle: '',
         }}>
         <Stack.Screen name="Welcome" component={Welcome} />
-        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          initialParams={{setIsLogged: setIsLogged}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

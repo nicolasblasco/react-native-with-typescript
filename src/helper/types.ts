@@ -6,8 +6,8 @@ export type ClientType = {
 
 export type RootStackParamList = {
   Welcome: undefined;
-  Login: undefined;
-  Home: undefined;
+  Login: {setIsLogged: React.Dispatch<React.SetStateAction<boolean>>};
+  Home: {setIsLogged: React.Dispatch<React.SetStateAction<boolean>>};
   User: undefined;
   ClientsList: undefined;
   AddClientForm: undefined;

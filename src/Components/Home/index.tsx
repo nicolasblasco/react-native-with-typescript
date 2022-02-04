@@ -1,13 +1,18 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableHighlight} from 'react-native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../helper/types';
 
-const Home = () => {
+type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
+
+const Home = ({route}: Props) => {
+  const {setIsLogged} = route.params;
   return (
     <View style={styles.header}>
       <Text style={styles.title}>Welcome to</Text>
       <Text style={styles.titleName}>Radium Medical</Text>
       <TouchableHighlight
-        onPress={() => console.log('logout')}
+        onPress={() => setIsLogged(false)}
         underlayColor="#16C79A"
         style={styles.button}>
         <Text style={styles.buttonTitle}>Logout</Text>
