@@ -27,6 +27,7 @@ const ClientsList = ({navigation}: Props) => {
         keyExtractor={item => item.id.toString()}
         data={clientsContext?.clients}
         refreshing={clientsContext?.loading}
+        onRefresh={() => clientsContext?.getClients()}
         renderItem={({item}) => (
           <ListItem
             id={item.id}

@@ -62,6 +62,7 @@ const ClientsContextProvider: FC = ({children}) => {
       value={{
         clients,
         loading,
+        getClients,
         deleteClient,
         createClient,
         updateClient,
