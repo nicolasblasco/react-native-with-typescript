@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 interface Props {
   id: number;
@@ -23,14 +24,14 @@ const ListItem: React.FC<Props> = ({id, name, email, onDelete, onUpdate}) => {
           activeOpacity={0.6}
           style={styles.updateButton}
           testID="update-button">
-          <Text style={styles.update}>Update</Text>
+          <Ionicons name="pencil" size={20} color="#19456B" />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={onDelete}
           activeOpacity={0.4}
           style={styles.deleteButton}
           testID="delete-button">
-          <Text style={styles.delete}>Delete</Text>
+          <Ionicons name="trash-outline" size={20} color="#DA1212" />
         </TouchableOpacity>
       </View>
     </View>
@@ -56,23 +57,9 @@ const styles = StyleSheet.create({
   },
   updateButton: {
     alignItems: 'center',
-    padding: 3,
-    borderRadius: 3,
-    borderWidth: 1,
-    borderColor: '#11698E',
-    backgroundColor: '#FFFFFF',
-  },
-  update: {
-    color: '#11698E',
   },
   deleteButton: {
     alignItems: 'center',
-    padding: 3,
-    borderRadius: 3,
-    backgroundColor: '#DA1212',
-  },
-  delete: {
-    color: '#FFFFFF',
   },
 });
 

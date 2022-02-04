@@ -25,20 +25,6 @@ const AddClientForm = ({navigation}: Props) => {
     navigation.navigate('ClientsList');
   };
 
-  //const {clients, setClients} = route.params;
-
-  // const addClient: SubmitHandler<newClient> = data => {
-  //   setClients([
-  //     ...clients,
-  //     {
-  //       id: Math.max(...clients.map(o => o.id), 0) + 1,
-  //       name: data.name,
-  //       email: data.email,
-  //     },
-  //   ]);
-  //   navigation.navigate('ClientsList');
-  // };
-
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>

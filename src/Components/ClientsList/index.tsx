@@ -11,7 +11,7 @@ const ClientsList = ({navigation}: Props) => {
   const clientsContext = useContext(ClientsContext);
 
   return (
-    <View>
+    <View style={styles.container}>
       <FlatList
         ListHeaderComponent={
           <View style={styles.header}>
@@ -46,12 +46,8 @@ const ClientsList = ({navigation}: Props) => {
 };
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-  },
   container: {
-    flex: 1,
-    alignItems: 'stretch',
+    backgroundColor: '#FFFFFF',
   },
   header: {
     flexDirection: 'row',
