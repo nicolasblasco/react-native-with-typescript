@@ -1,40 +1,36 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableHighlight} from 'react-native';
-import Toast from 'react-native-simple-toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useForm} from 'react-hook-form';
 import CustomInput from '../../Shared/Custom Input';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList, Credentials} from '../../../helper/types';
+import Toast from 'react-native-simple-toast';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'Register'>;
 
 const emailRegex =
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-const Login = ({route}: Props) => {
-  const {setIsLogged} = route.params;
-  const {
-    control,
-    handleSubmit,
-    //formState: {errors},
-  } = useForm<Credentials>();
+const Register = ({navigation}: Props) => {
+  const {control, handleSubmit} = useForm<Credentials>();
 
-  const handleLogin = async (credentials: Credentials) => {
+  const handleRegister = async (newUser: Credentials) => {
     try {
       const users = await AsyncStorage.getItem('users');
-      const parsedUsers = JSON.parse(users ?? '');
+      const parsedUsers = users && JSON.parse(users);
       if (
         Array.isArray(parsedUsers) &&
-        parsedUsers.filter(
-          (user: Credentials) =>
-            user.email === credentials.email &&
-            user.password === credentials.password,
-        ).length
+        !parsedUsers.filter((user: Credentials) => user.email === newUser.email)
+          .length
       ) {
-        setIsLogged(true);
-      } else {
-        Toast.show('Invalid credentials.');
+        parsedUsers.push(newUser);
+        return AsyncStorage.setItem('users', JSON.stringify(parsedUsers)).then(
+          () => {
+            Toast.show('User registered');
+            navigation.navigate('Welcome');
+          },
+        );
       }
     } catch (error) {
       console.log(error);
@@ -44,7 +40,7 @@ const Login = ({route}: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>Login</Text>
+        <Text style={styles.title}>Register</Text>
       </View>
       <View>
         <CustomInput
@@ -75,7 +71,7 @@ const Login = ({route}: Props) => {
           }}
         />
         <TouchableHighlight
-          onPress={handleSubmit(handleLogin)}
+          onPress={handleSubmit(handleRegister)}
           underlayColor="#16C79A"
           style={styles.button}>
           <Text style={styles.buttonTitle}>Submit</Text>
@@ -110,4 +106,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+export default Register;

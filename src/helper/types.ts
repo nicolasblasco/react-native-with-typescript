@@ -1,3 +1,8 @@
+export type Credentials = {
+  email: string;
+  password: string;
+};
+
 export type ClientType = {
   id: number;
   name: string;
@@ -6,6 +11,7 @@ export type ClientType = {
 
 export type RootStackParamList = {
   Welcome: undefined;
+  Register: undefined;
   Login: {setIsLogged: React.Dispatch<React.SetStateAction<boolean>>};
   Home: {setIsLogged: React.Dispatch<React.SetStateAction<boolean>>};
   User: undefined;

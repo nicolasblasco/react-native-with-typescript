@@ -13,7 +13,16 @@ const Welcome = ({navigation}: Props) => {
         <Text style={styles.title}>Welcome to</Text>
         <Text style={styles.titleName}>Radium Medical</Text>
       </View>
-      <CustomButton onPress={() => navigation.navigate('Login')} text="Login" />
+      <View>
+        <CustomButton
+          onPress={() => navigation.navigate('Login')}
+          text="Login"
+        />
+        <CustomButton
+          onPress={() => navigation.navigate('Register')}
+          text="Register"
+        />
+      </View>
     </View>
   );
 };

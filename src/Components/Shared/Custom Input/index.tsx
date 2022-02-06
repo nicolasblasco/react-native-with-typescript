@@ -14,6 +14,7 @@ interface Props {
   rules: object;
   placeholder: string;
   keyboardType: KeyboardTypeOptions;
+  secureTextEntry?: boolean;
 }
 
 const CustomInput: React.FC<Props> = ({
@@ -22,6 +23,7 @@ const CustomInput: React.FC<Props> = ({
   rules = {},
   placeholder,
   keyboardType,
+  secureTextEntry,
 }) => {
   return (
     <Controller
@@ -36,6 +38,8 @@ const CustomInput: React.FC<Props> = ({
             onBlur={onBlur}
             placeholder={placeholder}
             keyboardType={keyboardType}
+            secureTextEntry={secureTextEntry}
+            autoCapitalize="none"
             // eslint-disable-next-line react-native/no-inline-styles
             style={[styles.input, {borderColor: error ? 'red' : '#e8e8e8'}]}
           />

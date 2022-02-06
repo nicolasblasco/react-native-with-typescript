@@ -9,6 +9,7 @@ import ClientsList from '../Components/ClientsList';
 import AddClientForm from '../Components/AddForm';
 import UpdateClientForm from '../Components/UpdateForm ';
 import Login from '../Components/Auth/Login';
+import Register from '../Components/Auth/Register';
 import User from '../Components/User';
 
 const Stack = createNativeStackNavigator();
@@ -86,6 +87,7 @@ const Navigator = () => {
           headerTitle: '',
         }}>
         <Stack.Screen name="Welcome" component={Welcome} />
+        <Stack.Screen name="Register" component={Register} />
         <Stack.Screen
           name="Login"
           component={Login}
